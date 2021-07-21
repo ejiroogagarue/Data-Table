@@ -1,0 +1,112 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+p{
+
+  margin: 0;
+}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.container-large-1264px{
+  max-width: 1264px;
+  /*margin: auto;*/
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.font-family-inter {
+  font-family: 'Inter', sans-serif;
+}
+.font-size-18px {
+  font-size: 18px;
+}
+.font-size-24px {
+  font-size: 24px;
+}
+.font-size-36px {
+  font-size: 36px;
+}
+.font-size-48px {
+  font-size: 48px;
+}
+.font-weight-700 {
+  font-weight: 700;
+}
+.font-weight-600 {
+  font-weight: 600;
+}
+.font-weight-500 {
+  font-weight: 500;
+}
+.font-weight-400 {
+  font-weight: 400;
+}
+.button-border-radius-6px {
+  border-radius: 6px;
+}
+.button-box-shadow {
+  box-shadow: 2px 6px 2px;
+}
+.button-background-color {
+  background-color: #0057B8;
+}
+.button-border-color {
+  border-color: white;
+}
+.button-text-color {
+  color : white;
+}
+.margin-bottom-20px {
+  margin-bottom: 20px;
+}
+.padding-top-24px {
+  padding-top: 24px;
+}
+.margin-top-16px {
+  margin-top: 16px;
+}
+.margin-top-36px {
+  margin-top: 36px;
+}
+
+
+/*
+-------------------------------
+
+MATERIAL PAGINATOR SETTINGS
+
+
+---------------------------------
+*/
+.mat-paginator-container {
+  display: flex;
+
+  justify-content: space-between !important;
+  }
+
+.mat-paginator {
+  display: block;
+  margin-top: 24px;
+}
+
+.mat-paginator-page-size-label, .mat-paginator-range-label  {
+  /*margin: 0 4px;*/
+  font-size: 18px ;
+  white-space: nowrap;
+  /*margin-right: 10px ;*/
+  color: #0257FF;
+  font-family: 'Inter', sans-serif;
+}
+
+.mat-paginator-range-actions {
+
+  margin-right: 20px;
+}
+.mat-calendar-body-selected  {
+  background-color: #0257FF ;
+  color: #fff;
+}
+
+/*.mat-calendar-body-today:not(.mat-calendar-body-selected) {*/
+/*  !*border-color: rgba(0,0,0,.38);*!*/
+/*  background-color: #0257FF;*/
+/*  color: #fff;*/
+/*}*/

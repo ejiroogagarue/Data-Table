@@ -1,0 +1,374 @@
+<!--<mat-data-table></mat-data-table>-->
+
+
+<mat-data-table class="mat-elevation-z8  ">
+  <div class=" action-section">
+    <div class="action-elements">
+
+
+      <div class="button-wrapper">
+        <ng-container action-bar-items>
+          <button mat-table-column-sorter
+                  #tooltip="matTooltip"
+                  matTooltip="Click to format table properties"
+                  [matTooltipPosition]="position.value"
+                  [(columns)]="displayedColumns"
+                  [columnNames]="displayedColumnsNames"
+                  [saveName]="'example-table'" >
+            <mat-icon class="settings-icon">filter_list</mat-icon>
+          Table Filter
+          </button>
+        </ng-container>
+      </div>
+        <div class="date-wrapper">
+
+          <form class="date-block" [formGroup]="filterForm">
+
+            <div class="date-block">
+              <mat-form-field>
+                <label>
+                  <input matInput
+                         [matDatepicker]="fromDate"
+                         placeholder="From Date"
+                         formControlName="fromDate">
+                </label>
+                <mat-datepicker-toggle matSuffix [for]="fromDate"  #tooltip="matTooltip"
+                                       matTooltip="Click to Open the Date Picker"
+                                       [matTooltipPosition]="position.value"></mat-datepicker-toggle>
+                <mat-datepicker #fromDate ></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="date-block">
+              <mat-form-field>
+                <label>
+                  <input matInput
+                         [matDatepicker]="toDate"
+                         placeholder="To Date"
+                         formControlName="toDate">
+                </label>
+                <mat-datepicker-toggle matSuffix [for]="toDate" #tooltip="matTooltip"
+                                       matTooltip="Click to Open the Date Picker"
+                                       [matTooltipPosition]="position.value"></mat-datepicker-toggle>
+                <mat-datepicker #toDate></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div>
+              <button mat-button color="primary" class="order-note-button-color mat-raised-button mat-button-base date-button" #tooltip="matTooltip"
+                      matTooltip="click on button to filter by date"
+                      [matTooltipPosition]="position.value" (click)="applyDateFilter(filterForm.value)">Filter Date</button>
+            </div>
+
+          </form>
+        </div>
+      <div class="search-wrapper">
+        <ng-container>
+
+          <div class="search-bar-section">
+            <mat-icon class="fa fa-search" >search</mat-icon>
+            <input type="search" class="search-input" matInput placeholder="Search Table" (keyup)="applySearchFilter($event)">
+
+          </div>
+
+
+        </ng-container>
+      </div>
+
+    </div>
+
+
+  </div>
+
+  <div >
+
+
+    <div class="spinner-container" *ngIf="this.tableService.loading$ | async">
+      <mat-spinner></mat-spinner>
+    </div>
+    <table mat-table
+           [dataSource]="dataSource" multiTemplateDataRows
+           class="mat-elevation-z8 styled-table">
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef [ngClass]="'th-font-size-16px'">Action </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-raised-button #tooltip="matTooltip"
+                  matTooltip="Click to view order details"
+                  [matTooltipPosition]="position.value" class="order-note-button-color"  (click)="expandedElement = expandedElement === element ? null : element">
+            <mat-icon>description</mat-icon>
+            Order Details
+          </button>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="Customer">
+        <th mat-header-cell *matHeaderCellDef [ngClass]="'th-font-size-16px'"> Customer </th>
+        <td mat-cell *matCellDef="let element"> {{element.Customer}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="JobNum">
+        <th mat-header-cell *matHeaderCellDef [ngClass]="'th-font-size-16px'"> Job Number </th>
+        <td mat-cell *matCellDef="let element"> {{element.JobNum}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="Item">
+        <th mat-header-cell *matHeaderCellDef [ngClass]="'th-font-size-16px'"> Item </th>
+        <td mat-cell *matCellDef="let element"> {{element.Item}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="Category">
+        <th mat-header-cell *matHeaderCellDef [ngClass]="'th-font-size-16px'"> Category </th>
+        <td mat-cell *matCellDef="let element"> {{element.Category}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="HpCopy">
+        <th mat-header-cell *matHeaderCellDef [ngClass]="'th-font-size-16px'"> Hp Copy </th>
+        <td mat-cell *matCellDef="let element"> {{element.HpCopy}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Tracking" >
+        <th mat-header-cell *matHeaderCellDef [ngClass]="'th-font-size-16px'"> Tracking </th>
+        <td mat-cell *matCellDef="let element"> {{element.Tracking}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Die">
+        <th mat-header-cell *matHeaderCellDef [ngClass]="'th-font-size-16px'"> Die </th>
+        <td mat-cell *matCellDef="let element" [ngClass]="getClassByValue(element.Die)"> {{element.Die}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Plate">
+        <th mat-header-cell *matHeaderCellDef [ngClass]="'th-font-size-16px'"> Plate </th>
+        <td mat-cell *matCellDef="let element"> {{element.Plate}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Varnish">
+        <th mat-header-cell *matHeaderCellDef [ngClass]="'th-font-size-16px'"> Varnish </th>
+        <td mat-cell *matCellDef="let element"> {{element.Varnish}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Type">
+        <th mat-header-cell *matHeaderCellDef [ngClass]="'th-font-size-16px'"> Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.Type}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Mat1">
+        <th mat-header-cell *matHeaderCellDef [ngClass]="'th-font-size-16px'"> Material One </th>
+        <td mat-cell *matCellDef="let element"> {{element.Mat1}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Mat2">
+        <th mat-header-cell *matHeaderCellDef [ngClass]="'th-font-size-16px'"> Material Two </th>
+        <td mat-cell *matCellDef="let element"> {{element.Mat2}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Width1">
+        <th mat-header-cell *matHeaderCellDef [ngClass]="'th-font-size-16px'"> Width One </th>
+        <td mat-cell *matCellDef="let element"> {{element.Width1}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Width2">
+        <th mat-header-cell *matHeaderCellDef [ngClass]="'th-font-size-16px'"> Width Two </th>
+        <td mat-cell *matCellDef="let element"> {{element.Width2}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="TaskQty">
+        <th mat-header-cell *matHeaderCellDef [ngClass]="'th-font-size-16px'"> Task Quantity </th>
+        <td mat-cell *matCellDef="let element"> {{element.TaskQty}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Press">
+        <th mat-header-cell *matHeaderCellDef [ngClass]="'th-font-size-16px'"> Press </th>
+        <td mat-cell *matCellDef="let element"> {{element.Press}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Msf">
+        <th mat-header-cell *matHeaderCellDef [ngClass]="'th-font-size-16px'"> Msf </th>
+        <td mat-cell *matCellDef="let element"> {{element.Msf}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Prodcode">
+        <th mat-header-cell *matHeaderCellDef [ngClass]="'th-font-size-16px'"> Product Code </th>
+        <td mat-cell *matCellDef="let element"> {{element.Prodcode}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Shipdate">
+        <th mat-header-cell *matHeaderCellDef [ngClass]="'th-font-size-16px'"> Ship Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.Shipdate | date: 'dd/MM/yyyy'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Ordernotes" >
+        <th mat-header-cell *matHeaderCellDef  [ngClass]="'th-font-size-16px'">
+          Order Notes </th>
+        <td mat-cell *matCellDef="let element" > {{element.Ordernotes}} </td>
+      </ng-container>
+
+
+
+      <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+          <div class="example-element-detail"
+               [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+            <div class="form-section">
+              <div class="form-container" *ngIf="!isEditEnable">
+                <div>
+
+                  <div class="order-note-header">
+                    <h2 class="order-note-title">Order Notes</h2>
+                    <div class="edit-button-wrapper">
+                      <button mat-raised-button color="primary" class="edit-note-button"  (click)="onEdit()">Edit Note</button>
+                    </div>
+
+                  </div>
+
+
+                  <div *ngIf="!isEditEnable" >
+                    <p  class="order-notes "> {{element.Ordernotes}}</p>
+                  </div>
+
+
+                </div>
+
+
+              </div>
+              <!--   testing my form edit section-->
+              <div *ngIf="isEditEnable" class="form-container no-background margin-left-20px" >
+                <form [formGroup]="tableDataForm"  >
+                  <div class="order-note-header">
+                    <h2 class="order-note-title black-text">Enter Order Notes:</h2>
+
+
+                    <!--                    <label>-->
+                    <!--                      <input type="text" formControlName="Ordernotes" required>-->
+                    <!--                    </label>-->
+
+                  </div>
+                  <label>
+
+                    <textarea class="order-note-text-area" type="text"  formControlName="Ordernotes" required></textarea>
+                  </label>
+                  <!--                  <label>-->
+
+                  <!--&lt;!&ndash;                    <textarea class ="text-area margin-right-20px" formControlName="Ordernotes"></textarea>&ndash;&gt;-->
+                  <!--                    <input type="text" formControlName="Ordernotes" required>-->
+                  <!--                  </label>-->
+                  <div class="edit-action-button-wrapper">
+                    <button class="btn btn-primary margin-right-20px" mat-raised-button color="warn" (click)="onEdit()"><mat-icon>cancel</mat-icon>Cancel</button>
+                    <button type="submit" class="btn btn-primary edit-button-color" mat-raised-button color="primary" (click)="onSubmit(); onEdit()">Enter  Note </button>
+
+                  </div>
+                </form>
+              </div>
+
+            </div>
+<div class="order-section" >
+<!--  <div class="element-header"> {{element.Customer}} </div>-->
+<div class="order-header">
+  <div class="element-customer"> {{element.Customer}} </div>
+  <div class ="element-number">
+    <div class="element-number">
+      <p class="element-header">Job Number:</p><p class="element-details">{{element.JobNum}}</p>
+    </div>
+    <div class="element-number">
+      <p class="element-header">Ship Date:</p><p class="element-details">{{element.Shipdate | date: 'dd/MM/yyyy'}}</p>
+    </div>
+
+  </div>
+
+</div>
+
+
+  <div class="order-details">
+    <div class="column-one column-width">
+      <div class="element-number border-bottom">
+        <p class="element-header">MSF Number</p><p class="element-details">{{element.Msf}}</p>
+      </div>
+      <div class="element-number border-bottom">
+        <p class="element-header">Item Number</p><p class="element-details">{{element.Item}}</p>
+      </div>
+      <div class="element-number border-bottom">
+        <p class="element-header">Category</p><p class="element-details">{{element.Category}}</p>
+      </div>
+      <div class="element-number border-bottom">
+        <p class="element-header">HP Copy</p><p class="element-details">{{element.HpCopy}}</p>
+      </div>
+
+    </div>
+
+    <div class="column-two column-width">
+      <div class="element-number border-bottom">
+        <p class="element-header">Tracking</p><p class="element-details">{{element.Tracking}}</p>
+      </div>
+      <div class="element-number border-bottom">
+        <p class="element-header">Die</p><p class="element-details">{{element.Die}}</p>
+      </div>
+      <div class="element-number border-bottom">
+        <p class="element-header">Plate</p><p class="element-details">{{element.Category}}</p>
+      </div>
+      <div class="element-number border-bottom">
+        <p class="element-header">Varnish</p><p class="element-details">{{element.HpCopy}}</p>
+      </div>
+
+    </div>
+    <div class="column-three column-width">
+      <div class="element-number border-bottom">
+        <p class="element-header">Type</p><p class="element-details">{{element.Tracking}}</p>
+      </div>
+      <div class="element-number border-bottom">
+        <p class="element-header">Material One</p><p class="element-details">{{element.Mat1}}</p>
+      </div>
+      <div class="element-number border-bottom">
+        <p class="element-header">Material Two</p><p class="element-details">{{element.Mat2}}</p>
+      </div>
+      <div class="element-number border-bottom">
+        <p class="element-header">Width One</p><p class="element-details">{{element.Width1}}</p>
+      </div>
+
+    </div>
+    <div class="column-Four column-width">
+      <div class="element-number border-bottom">
+        <p class="element-header">Width Two</p><p class="element-details">{{element.Width2}}</p>
+      </div>
+      <div class="element-number border-bottom">
+        <p class="element-header">Task Quantity</p><p class="element-details">{{element.TaskQty}}</p>
+      </div>
+      <div class="element-number border-bottom">
+        <p class="element-header">Press</p><p class="element-details">{{element.Press}}</p>
+      </div>
+      <div class="element-number border-bottom">
+        <p class="element-header">Production Code</p><p class="element-details">{{element.Prodcode}}</p>
+      </div>
+
+    </div>
+  </div>
+
+
+
+</div>
+
+
+
+
+
+
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let element; columns: displayedColumns;"
+          class="example-element-row"
+          (click)="onRowClicked(element)"
+          [class.example-expanded-row]="expandedElement === element"
+      >
+      </tr>
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row" ></tr>
+    </table>
+
+    <mat-paginator style-paginator [pageSizeOptions]="[50,100,150]" showFirstLastButtons></mat-paginator>
+  </div>
+</mat-data-table>
+
+
+

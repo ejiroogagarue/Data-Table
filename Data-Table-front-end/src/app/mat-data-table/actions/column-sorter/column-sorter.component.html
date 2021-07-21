@@ -1,0 +1,36 @@
+
+<button mat-button color="primary" class="column-sorter-button" [matMenuTriggerFor]="columnMenu">
+  <ng-content></ng-content>
+</button>
+<mat-menu #columnMenu="matMenu">
+
+  <div class="va-mat-table-dragable-container" cdkDropList cdkDropListLockAxis="y" cdkDropListOrientation="vertical">
+    <div class="dragable-row"
+
+         *ngFor="let column of columnInfo; let i = index"
+         cdkDrag
+         [cdkDragData]="{columnIndex: i, columnTitle: column.id}"
+         (cdkDragDropped)="columnMenuDropped($event)">
+      <mat-icon   #tooltip="matTooltip"
+                  matTooltip="Drag to Change Table Column"
+                  [matTooltipPosition]="position.value" cdkDragHandle>drag_indicator</mat-icon>
+      <mat-checkbox
+        #tooltip="matTooltip"
+        matTooltip="Click To Show / Hide Column"
+        [matTooltipPosition]="position.value"
+        [disabled]="column.preventBeingHidden"
+        [checked]="!column.hidden"
+        (click)="$event.stopPropagation();"
+        (change)="toggleSelectedColumn(column.id)">
+        {{ column.name }}
+      </mat-checkbox>
+
+      <mat-card class="va-mat-table-drag-preview" *cdkDragPreview>
+        <mat-icon>drag_indicator</mat-icon>
+        <mat-checkbox [checked]="!column.hidden">
+          {{ column.name }}
+        </mat-checkbox>
+      </mat-card>
+    </div>
+  </div>
+</mat-menu>

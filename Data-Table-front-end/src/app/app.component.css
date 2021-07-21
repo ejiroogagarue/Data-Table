@@ -1,0 +1,133 @@
+.container-large-1264px{
+  max-width: 1264px;
+  /*margin: auto;*/
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.container-large-1440px {
+  max-width: 1440px;
+  margin: auto;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.font-family-inter {
+  font-family: 'Inter', sans-serif;
+}
+.font-size-18px {
+ font-size: 18px;
+}
+.font-size-24px {
+  font-size: 24px;
+}
+.font-size-36px {
+  font-size: 36px;
+}
+.font-size-48px {
+  font-size: 48px;
+}
+.font-weight-700 {
+  font-weight: 700;
+}
+.font-weight-600 {
+  font-weight: 600;
+}
+.font-weight-500 {
+   font-weight: 500;
+}
+.font-weight-400 {
+  font-weight: 400;
+}
+.button-border-radius-6px {
+  border-radius: 6px;
+}
+.button-box-shadow {
+  box-shadow: 2px 6px 2px;
+}
+.button-background-color {
+  background-color: #0057B8;
+}
+.button-border-color {
+  border-color: white;
+}
+.button-text-color {
+  color : white;
+}
+.margin-bottom-20px {
+  margin-bottom: 20px;
+}
+.padding-top-24px {
+  padding-top: 24px;
+}
+.margin-top-16px {
+  margin-top: 16px;
+}
+.margin-top-36px {
+  margin-top: 36px;
+}
+
+/*<--------------------- Navigation Section -------------------------->*/
+.navigation-header {
+  max-width: 1264px;
+  margin: auto;
+  padding-left: 20px ;
+  padding-right: 20px;
+}
+.nav-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-gap: 16px;
+}
+
+.nav-logo{
+
+}
+.nav-menu{
+  display: flex;
+}
+.admin-button {
+  padding: 14px 34px;
+  background-color: #0057B8;
+  border-color: #0057B8 ;
+  color : white;
+}
+
+.button-wrapper {
+  margin-left: auto;
+}
+
+
+.table-container {
+
+  /*padding-right: 20px;*/
+  /*padding-left: 20px;*/
+
+  max-width: 100%;
+  overflow: auto;
+}
+.header-section {
+  display: flex;
+}
+.image-container {
+  width: 20%;
+}
+.logo {
+  width: 100%;
+  margin-top: 30px;
+}
+
+.header-container{
+  /*width: 50%;*/
+  margin: 0;
+  margin-left: 24px;
+  margin-top: 24px;
+}
+.header{
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 80px;
+  /*padding-bottom: 10px;*/
+  color: #0257FF;
+  /*border-bottom: 5px solid #0257ff;*/
+}
